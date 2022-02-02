@@ -2,8 +2,8 @@ const fs = require('fs');
 const path = require ('path');
 const express = require('express');
 const dbJson = require('./db/db.json')
-var uuidv1 = require('uuidv1');
-const { parse } = require('path/posix');
+const {v1 : uuidv1} = require('uuid');
+
 
 const PORT = process.env.PORT || 3001;
 const app = express();
