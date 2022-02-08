@@ -20,6 +20,7 @@ const hide = (elem) => {
     elem.style.display = 'none';
 };
 
+
 let activeNotes = {};
 
 const getNotes = () => 
