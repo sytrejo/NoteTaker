@@ -8,8 +8,7 @@ const {v1 : uuidv1} = require('uuid');
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-app.use(express.urlencoded({extended: true}));
-
+app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 app.use(express.static("public"));
 
@@ -17,13 +16,13 @@ app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html'));
 });
 
-app.get('/api/notes', (req,res) => {
+app.get('/api/notes', (req, res) => {
     const dataNotes = fs.readFileSync(path.join(__dirname, './db/db.json'), "utf-8");
     const parseNotes = JSON.parse(dataNotes);
     res.json(parseNotes);
 });
 
-app.post('/.api/notes', (req, res) => {
+app.post('/api/notes', (req, res) => {
     const dataNotes = fs.readFileSync(path.join(__dirname, './db/db.json'), "utf-8");
     const parseNotes = JSON.parse(dataNotes);
     req.body.id = uuidv1()
@@ -40,7 +39,7 @@ app.get('*', (req, res) => {
 app.delete("/api/notes/:id", function (req, res){
     console.log(uuidv1())
     console.log("Req.params:", req.params);
-    let deleteNote = parseInt(req.params.id);
+    let deletedNote = parseInt(req.params.id);
     console.log(deletedNote);
 
     for (let i = 0; i < dbJson.length; i++){
