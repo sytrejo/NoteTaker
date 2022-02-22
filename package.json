@@ -2,23 +2,21 @@
   "name": "notetaker",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sytrejo/NoteTaker.git"
   },
-  "keywords": [],
+
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sytrejo/NoteTaker/issues"
-  },
-  "homepage": "https://github.com/sytrejo/NoteTaker#readme",
   "dependencies": {
     "express": "^4.17.2",
+    "util": "^0.12.4",
     "uuid": "^8.3.2"
   }
 }
