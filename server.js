@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 app.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/homepage.html'));
+    res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
 app.get('/api/notes', (req, res) => {
@@ -36,25 +36,20 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
-app.delete("/api/notes/:id", function (req, res){
-    console.log(uuidv1())
-    console.log("Req.params:", req.params);
-    let deletedNote = parseInt(req.params.id);
-    console.log(deletedNote);
 
-    for (let i = 0; i < dbJson.length; i++){
-        if (deletedNote === dbJson[i].id){
-            dbJson.splice(i,1);
-
-            let noteJson = JSON.stringify(dbJson, null, 2);
-            console.log(noteJson);
-            fs.writeFile("./db/db.json", noteJson, function(err) {
-                if (err) throw err;
-                console.log("Your note has been deleted!");
-                res.json(dbJson);
-            });
-        }
+app.delete('/api/notes/:id', (req, res) => {
+    let noteIndex = dbJson.findIndex((note) => note.id == req.params.id); //find the index of a note of it has an id equal to the passed in id
+    if (noteIndex) {
+        dbJson.splice(noteIndex, 1);  //then take out that one note starting at that index position
+        fs.writeFile('./db/db.json', JSON.stringify(dbJson), (err, data) => {
+            if (err) {
+                console.log('Data is : ' + data);
+                throw err;
+            }
+        });
+        return res.status(200).json('Note deleted.');
     }
+    return res.status(404).json('Note not found.');
 });
 
 app.listen(PORT, () => {
